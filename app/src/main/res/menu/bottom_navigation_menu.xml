@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Accueil"/>
+    <item
+        android:id="@+id/page_cards"
+        android:enabled="true"
+        android:icon="@drawable/ic_card"
+        android:title="Cartes"/>
+    <item
+        android:id="@+id/page_scan"
+        android:enabled="true"
+        android:icon="@drawable/ic_scan"
+        android:title="Scanner"/>
+    <item
+        android:id="@+id/page_stats"
+        android:enabled="true"
+        android:icon="@drawable/ic_stats"
+        android:title="Statistiques"/>
+    <item
+        android:id="@+id/page_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Paramètres"/>
+</menu>

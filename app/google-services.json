@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "63718672112",
+    "project_id": "be9ik-wallet",
+    "storage_bucket": "be9ik-wallet.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63718672112:android:e449b86b96cafcda3de435",
+        "android_client_info": {
+          "package_name": "com.example.be9ik_wallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCCurRjVh84iDFekwYyV0oICA3oEchNHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
