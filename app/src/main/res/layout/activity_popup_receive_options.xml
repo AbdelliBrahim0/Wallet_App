@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="16dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#333333"
+    android:layout_margin="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="#161616">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Options de réception"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_code_cadeau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Code Cadeau"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="#2b2b2b"
+            app:strokeColor="#FF9800"
+            app:strokeWidth="2dp"
+            app:cornerRadius="12dp"
+            android:textColor="@android:color/white"
+            android:padding="16dp"
+            app:icon="@drawable/ic_gift"
+            app:iconTint="#FF9800"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_lbe9i"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paiement Marchand"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="#2b2b2b"
+            app:strokeColor="#FF9800"
+            app:strokeWidth="2dp"
+            app:cornerRadius="12dp"
+            android:textColor="@android:color/white"
+            android:padding="16dp"
+            app:icon="@drawable/wallet"
+            app:iconTint="#FF9800"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_transfere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transfert"
+            app:backgroundTint="#FF9800"
+            app:cornerRadius="12dp"
+            android:textColor="@android:color/white"
+            android:padding="16dp"
+            app:icon="@drawable/ic_transfer"
+            app:iconTint="@android:color/white"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_fermer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fermer"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="#9E9E9E"
+            app:rippleColor="#33FF9800" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -168,7 +168,7 @@
                         android:id="@+id/balance_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="€ 2,458.50"
+                        android:text="DT 0"
                         android:textSize="36sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
@@ -205,14 +205,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Revenus"
+                            android:text="BetaCoin"
                             android:textSize="14sp"
                             android:textColor="#9E9E9E" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="€ 3,250.00"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#4CAF50" />
@@ -241,7 +241,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="€ 791.50"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#FF5252" />

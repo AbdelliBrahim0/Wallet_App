@@ -16,6 +16,39 @@
         android:theme="@style/Theme.Be9ik_Wallet"
         tools:targetApi="31">
         <activity
+            android:name=".Voucher"
+            android:exported="false" />
+        <activity
+            android:name=".ProfiterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Historique"
+            android:exported="false" />
+        <activity
+            android:name=".Popup_code_Vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".Be9i"
+            android:exported="false" />
+        <activity
+            android:name=".CodeCadeau"
+            android:exported="false" />
+        <activity
+            android:name=".EnvoyerArgentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".popup_receive_options"
+            android:exported="false" />
+        <activity
+            android:name=".envoyer_argent"
+            android:exported="false" />
+        <activity
+            android:name=".VerificationDone"
+            android:exported="false" />
+        <activity
+            android:name=".VerificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
@@ -36,8 +69,6 @@
             android:name=".MainActivity"
             android:exported="false"
             android:launchMode="singleTop" /> <!-- Service Firebase (important pour les notifications et autres fonctionnalités) -->
-        
-        
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"
             android:exported="false">

@@ -24,21 +24,16 @@
         <!-- Logo container with circular background -->
         <FrameLayout
             android:id="@+id/logo_container"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/logo_background_orange"
+            android:background="@drawable/logobe9ikk"
             android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/wallet"
-                android:contentDescription="App Logo" />
+
         </FrameLayout>
 
         <!-- Title -->
@@ -201,7 +196,7 @@
                             android:id="@+id/signup_username"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:hint="Choisissez un nom d'utilisateur"
+                            android:hint="Nom d'utilisateur"
                             android:textColor="@android:color/white"
                             android:textColorHint="#9E9E9E" />
                     </com.google.android.material.textfield.TextInputLayout>

@@ -67,7 +67,7 @@
                     android:id="@+id/tv_profile_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Premium Member"
+                    android:text="Profile"
                     android:textColor="#FF9800"
                     android:textSize="16sp"
                     android:layout_marginTop="4dp" />
@@ -76,7 +76,7 @@
                     android:id="@+id/tv_profile_joined"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Member since January 2023"
+                    android:text="Membere depuis "
                     android:textColor="#9E9E9E"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp" />
@@ -132,12 +132,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Account Summary"
+                            android:text="BetaCoin"
                             android:textColor="@android:color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_verified"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="VERIFIED"
@@ -165,7 +166,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Current Balance"
+                                android:text="Balance"
                                 android:textColor="#9E9E9E"
                                 android:textSize="14sp" />
 
@@ -173,7 +174,7 @@
                                 android:id="@+id/tv_balance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Balance: 0.00 €"
+                                android:text="Balance: 0.00 DT"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
                                 android:layout_marginTop="8dp"
@@ -195,7 +196,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Loyalty Points"
+                                android:text="BetaCoin"
                                 android:textColor="#9E9E9E"
                                 android:textSize="14sp" />
 
@@ -203,7 +204,7 @@
                                 android:id="@+id/tv_loyalty_points"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2,450"
+                                android:text="0"
                                 android:textColor="#FF9800"
                                 android:textSize="22sp"
                                 android:textStyle="bold" />
@@ -222,7 +223,7 @@
                             android:layout_height="56dp"
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
-                            android:text="Add Funds"
+                            android:text="Ajouter"
                             android:textColor="@android:color/white"
                             app:backgroundTint="#FF9800"
                             app:cornerRadius="12dp"
@@ -235,7 +236,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="Transfer"
+                            android:text="Transferer"
                             android:textColor="@android:color/white"
                             app:backgroundTint="#2b2b2b"
                             app:strokeColor="#FF9800"

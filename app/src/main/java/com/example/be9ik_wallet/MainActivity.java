@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvUserName, tvBalanceAmount;
-    private MaterialButton btnToggleBalance, btnProfile;
+    private MaterialButton btnToggleBalance, btnProfile, btnReceiveMoney, btnSendMoney, btnTransactionHistory;
     private boolean isBalanceVisible = true;
 
     private FirebaseAuth mAuth;
@@ -43,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
         tvBalanceAmount = findViewById(R.id.balance_amount);
         btnToggleBalance = findViewById(R.id.btn_toggle_balance);
         btnProfile = findViewById(R.id.btn_profile);
+        btnReceiveMoney = findViewById(R.id.btn_receive_money);
+        btnSendMoney = findViewById(R.id.btn_send_money);
+        btnTransactionHistory = findViewById(R.id.btn_transaction_history);
+
+        btnReceiveMoney.setOnClickListener(v -> showReceiveOptionsPopup());
+        btnSendMoney.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, EnvoyerArgentActivity.class);
+            startActivity(intent);
+        });
+        btnTransactionHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Historique.class);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "HistoriqueActivity introuvable", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadUserData() {
@@ -54,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     UserClass user = snapshot.getValue(UserClass.class);
                     if (user != null) {
                         tvUserName.setText(user.getUsername());
-                        tvBalanceAmount.setText(String.format("€ %.2f", user.getBalance()));
+                        tvBalanceAmount.setText(String.format("%.3f DT", user.getBalance()));
                         setupProfileButton(user.getUsername()); // Pass username to ProfileActivity
                     }
                 } else {
@@ -91,5 +108,40 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             startActivity(intent);
         });
+    }
+
+    private void showReceiveOptionsPopup() {
+        // Créez un Dialog
+        final android.app.Dialog dialog = new android.app.Dialog(this);
+        dialog.setContentView(R.layout.activity_popup_receive_options);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        // Configurez les boutons dans le popup
+        MaterialButton btnCodeCadeau = dialog.findViewById(R.id.btn_code_cadeau);
+        MaterialButton btnLbe9i = dialog.findViewById(R.id.btn_lbe9i);
+        MaterialButton btnTransfere = dialog.findViewById(R.id.btn_transfere);
+        MaterialButton btnFermer = dialog.findViewById(R.id.btn_fermer);
+
+        btnCodeCadeau.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CodeCadeau.class);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        btnLbe9i.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Be9i.class);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        btnTransfere.setOnClickListener(v -> {
+            Toast.makeText(this, "Transfert sélectionné", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        btnFermer.setOnClickListener(v -> dialog.dismiss());
+
+        // Affichez le Dialog
+        dialog.show();
     }
 }

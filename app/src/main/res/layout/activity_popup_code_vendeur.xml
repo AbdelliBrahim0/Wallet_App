@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="24dp"
+    app:cardBackgroundColor="#161616">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header with orange accent -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1A1A1A"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/icon_secure"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_lock"
+                android:contentDescription="Sécurité"
+                android:background="@drawable/icon_background_circle_orange"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/icon_secure"
+                android:text="Code de Transaction"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+        <!-- Content area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Veuillez entrer le code de transaction fourni par le vendeur pour confirmer ce paiement."
+                android:textSize="14sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Transaction code input with premium styling -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTransactionCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:boxBackgroundColor="#2b2b2b"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="#FF9800"
+                android:textColorHint="#9E9E9E"
+                app:startIconDrawable="@drawable/ic_key"
+                app:startIconTint="#FF9800"
+                app:endIconMode="password_toggle"
+                app:endIconTint="#9E9E9E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTransactionCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Code de transaction"
+                    android:inputType="numberPassword"
+                    android:maxLength="6"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="#9E9E9E"
+                    android:padding="16dp"
+                    android:letterSpacing="0.5"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Alternative: PIN code style input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/pin_digit_1"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/pin_digit_2"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/pin_digit_3"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/pin_digit_4"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/pin_digit_5"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/pin_digit_6"
+                    android:layout_width="48dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/pin_code_background"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Security note -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_info"
+                    android:contentDescription="Information"
+                    app:tint="#9E9E9E"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ce code est fourni par le vendeur et garantit la sécurité de votre transaction."
+                    android:textSize="12sp"
+                    android:textColor="#9E9E9E" />
+            </LinearLayout>
+
+            <!-- Action buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Annuler"
+                    android:textAllCaps="false"
+                    android:textColor="#E0E0E0"
+                    app:backgroundTint="#2b2b2b"
+                    app:cornerRadius="12dp"
+                    android:layout_marginEnd="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmer"
+                    android:textAllCaps="false"
+                    app:backgroundTint="#FF9800"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

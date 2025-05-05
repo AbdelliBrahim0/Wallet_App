@@ -11,5 +11,10 @@
     <color name="oranger">#FF9800</color>
     <color name="red">#FF3D00</color>
     <color name="lavender">#5B6DF6</color>
-
+    <color name="accent_color">#FF3D00</color>
+    <color name="dark_background">#343434</color>
+    <color name="darker_background">#2b2b2b</color>
+    <color name="primary">#FF3D00</color>
+    <color name="verified_chip_background">#3300FF08</color>  <!-- Fond orange transparent -->
+    <color name="unverified_chip_background">#33F44336</color> <!-- Fond rouge transparent -->
 </resources>

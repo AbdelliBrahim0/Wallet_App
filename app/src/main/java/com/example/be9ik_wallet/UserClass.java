@@ -1,7 +1,10 @@
 package com.example.be9ik_wallet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class UserClass {
@@ -18,18 +21,24 @@ public class UserClass {
     private int codeTransaction;
     private List<String> voucherTab;
     private float balance;
+    private int betaCoin; // Nouveau champ
+    private boolean verified; // Nouveau champ
+    private String dateSignUp; // Nouveau champ
 
     // Constructor vide
     public UserClass() {
         this.codeTransaction = generateTransactionCode();
         this.voucherTab = new ArrayList<>();
         this.balance = 0.0f;
+        this.betaCoin = 0; // Initialisé à 0
+        this.verified = false; // Initialisé à false
+        this.dateSignUp = getCurrentDate(); // Date actuelle
     }
 
     // Constructor pour le formulaire
     public UserClass(String firstName, String lastName, String username, String email,
-                String birthDate, String phoneNumber, String password, String gender,
-                boolean termsAccepted) {
+                     String birthDate, String phoneNumber, String password, String gender,
+                     boolean termsAccepted) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -42,12 +51,46 @@ public class UserClass {
         this.codeTransaction = generateTransactionCode();
         this.voucherTab = new ArrayList<>();
         this.balance = 0.0f;
+        this.betaCoin = 0; // Initialisé à 0
+        this.verified = false; // Initialisé à false
+        this.dateSignUp = getCurrentDate(); // Date actuelle
     }
 
     // Méthode pour générer un code de transaction aléatoire à 4 chiffres
     private int generateTransactionCode() {
         Random random = new Random();
         return 1000 + random.nextInt(9000); // Génère un nombre entre 1000 et 9999
+    }
+
+    // Méthode pour obtenir la date actuelle
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    // Getters et Setters pour les nouveaux champs
+    public int getBetaCoin() {
+        return betaCoin;
+    }
+
+    public void setBetaCoin(int betaCoin) {
+        this.betaCoin = betaCoin;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getDateSignUp() {
+        return dateSignUp;
+    }
+
+    public void setDateSignUp(String dateSignUp) {
+        this.dateSignUp = dateSignUp;
     }
 
     // Getters et Setters
