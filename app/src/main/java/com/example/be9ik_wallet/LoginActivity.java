@@ -53,9 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> performLogin());
         tvForgotPassword.setOnClickListener(v -> handleForgotPassword());
         tvCreateAccount.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            startActivity(new Intent(LoginActivity.this, UserTypeSelectionActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
+
     }
 
     private void performLogin() {
@@ -116,8 +117,4 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void navigateToSignup(View view) {
-        startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
 }

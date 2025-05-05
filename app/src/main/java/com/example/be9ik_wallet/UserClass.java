@@ -24,6 +24,7 @@ public class UserClass {
     private int betaCoin; // Nouveau champ
     private boolean verified; // Nouveau champ
     private String dateSignUp; // Nouveau champ
+    private String role; // Nouveau champ
 
     // Constructor vide
     public UserClass() {
@@ -33,6 +34,7 @@ public class UserClass {
         this.betaCoin = 0; // Initialisé à 0
         this.verified = false; // Initialisé à false
         this.dateSignUp = getCurrentDate(); // Date actuelle
+        this.role = "user"; // Initialisé à "user"
     }
 
     // Constructor pour le formulaire
@@ -54,6 +56,7 @@ public class UserClass {
         this.betaCoin = 0; // Initialisé à 0
         this.verified = false; // Initialisé à false
         this.dateSignUp = getCurrentDate(); // Date actuelle
+        this.role = "user"; // Initialisé à "user"
     }
 
     // Méthode pour générer un code de transaction aléatoire à 4 chiffres
@@ -91,6 +94,15 @@ public class UserClass {
 
     public void setDateSignUp(String dateSignUp) {
         this.dateSignUp = dateSignUp;
+    }
+
+    // Getters et Setters pour le nouveau champ
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     // Getters et Setters
@@ -214,6 +226,7 @@ public class UserClass {
                 ", codeTransaction=" + codeTransaction +
                 ", voucherTab=" + voucherTab +
                 ", balance=" + balance +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

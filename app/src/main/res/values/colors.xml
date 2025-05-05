@@ -17,4 +17,7 @@
     <color name="primary">#FF3D00</color>
     <color name="verified_chip_background">#3300FF08</color>  <!-- Fond orange transparent -->
     <color name="unverified_chip_background">#33F44336</color> <!-- Fond rouge transparent -->
+    <color name="particle_color">#33FFFFFF</color>
+    <color name="dark_gray">#333333</color>
+
 </resources>

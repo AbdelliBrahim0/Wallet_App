@@ -31,6 +31,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 repositories {
@@ -52,6 +55,9 @@ dependencies {
     // Kotlin activity (à corriger si libs.activity ne fonctionne pas)
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Tests
     testImplementation("junit:junit:4.13.2")
