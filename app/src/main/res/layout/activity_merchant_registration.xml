@@ -176,11 +176,12 @@
                             android:hint="Sélectionnez le domaine d'activité"
                             android:textColor="@color/oranger"
                             android:textColorHint="#9E9E9E"
-                            android:inputType="none"
+                            android:inputType="text"
                             android:dropDownHeight="wrap_content"
                             android:dropDownVerticalOffset="8dp"
                             android:dropDownHorizontalOffset="8dp"
-                            android:popupBackground="@color/black" />
+                            android:popupBackground="@color/black"
+                            android:contentDescription="Domaine d'activité, sélectionnez ou entrez une option" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 

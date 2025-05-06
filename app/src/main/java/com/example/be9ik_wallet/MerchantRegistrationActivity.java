@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +24,7 @@ public class MerchantRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "MerchantRegistration";
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class MerchantRegistrationActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
 
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("merchants");
@@ -55,7 +59,7 @@ public class MerchantRegistrationActivity extends AppCompatActivity {
             String ownerFirstName = ((TextInputEditText) findViewById(R.id.owner_first_name)).getText().toString();
             String ownerLastName = ((TextInputEditText) findViewById(R.id.owner_last_name)).getText().toString();
             String ownerUsername = ((TextInputEditText) findViewById(R.id.owner_username)).getText().toString();
-            String ownerEmail = ((TextInputEditText) findViewById(R.id.owner_email)).getText().toString();
+            String ownerEmail = ((TextInputEditText) findViewById(R.id.owner_email)).getText().toString().trim().toLowerCase(); // Normalize email to lowercase
             String ownerCIN = ((TextInputEditText) findViewById(R.id.owner_cin)).getText().toString();
             String ownerPassword = ((TextInputEditText) findViewById(R.id.owner_password)).getText().toString();
             boolean termsAccepted = ((MaterialCheckBox) findViewById(R.id.terms_checkbox)).isChecked();
@@ -88,20 +92,31 @@ public class MerchantRegistrationActivity extends AppCompatActivity {
     private void saveMerchantToDatabase(MerchantClass merchant) {
         String merchantId = databaseReference.push().getKey(); // Generate unique ID
         if (merchantId != null) {
-            Log.d(TAG, "Generated merchant ID: " + merchantId);
-            databaseReference.child(merchantId).setValue(merchant)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Merchant saved successfully.");
-                    Toast.makeText(this, "Inscription réussie!", Toast.LENGTH_SHORT).show();
+            // Create Firebase Authentication account
+            mAuth.createUserWithEmailAndPassword(merchant.getOwnerEmail(), merchant.getOwnerPassword())
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Firebase Authentication account created successfully for email: " + merchant.getOwnerEmail());
+                        // Set role explicitly to ensure it's saved
+                        merchant.setRole("merchant");
+                        databaseReference.child(merchantId).setValue(merchant)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "Merchant saved successfully with email: " + merchant.getOwnerEmail());
+                                Toast.makeText(this, "Inscription réussie!", Toast.LENGTH_SHORT).show();
 
-                    // Redirect to UserTypeSelectionActivity
-                    Intent intent = new Intent(this, UserTypeSelectionActivity.class);
-                    startActivity(intent);
-                    finish();
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Erreur lors de l'inscription: " + e.getMessage());
-                    Toast.makeText(this, "Erreur lors de l'inscription: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Redirect to DashMarchand
+                                Intent intent = new Intent(this, DashMarchand.class);
+                                startActivity(intent);
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Erreur lors de l'inscription dans la base de données: " + e.getMessage());
+                                Toast.makeText(this, "Erreur lors de l'inscription dans la base de données: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                    } else {
+                        Log.e(TAG, "Erreur lors de la création du compte Firebase: " + task.getException().getMessage());
+                        Toast.makeText(this, "Erreur lors de la création du compte Firebase: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 });
         } else {
             Log.e(TAG, "Erreur lors de la génération de l'ID marchand.");
