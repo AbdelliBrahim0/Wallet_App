@@ -1,6 +1,7 @@
 package com.example.be9ik_wallet;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 public class DashMarchand extends AppCompatActivity {
 
     private TextView balanceTextView;
+    private TextView hiddenBalanceTextView;
+    private boolean isBalanceVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,10 @@ public class DashMarchand extends AppCompatActivity {
         setContentView(R.layout.activity_dash_marchand);
 
         balanceTextView = findViewById(R.id.textSolde);
+        hiddenBalanceTextView = findViewById(R.id.textSoldeHidden);
+        MaterialButton toggleBalanceButton = findViewById(R.id.btn_toggle_balance);
+
+        toggleBalanceButton.setOnClickListener(v -> toggleBalanceVisibility());
 
         // Fetch balance from Firebase
         fetchBalanceFromDatabase();
@@ -37,6 +45,17 @@ public class DashMarchand extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void toggleBalanceVisibility() {
+        if (isBalanceVisible) {
+            balanceTextView.setVisibility(View.GONE);
+            hiddenBalanceTextView.setVisibility(View.VISIBLE);
+        } else {
+            balanceTextView.setVisibility(View.VISIBLE);
+            hiddenBalanceTextView.setVisibility(View.GONE);
+        }
+        isBalanceVisible = !isBalanceVisible;
     }
 
     private void fetchBalanceFromDatabase() {
@@ -52,7 +71,9 @@ public class DashMarchand extends AppCompatActivity {
                             for (DataSnapshot merchantSnapshot : snapshot.getChildren()) {
                                 MerchantClass merchant = merchantSnapshot.getValue(MerchantClass.class);
                                 if (merchant != null) {
-                                    balanceTextView.setText(String.format("%.3f", merchant.getBalance()) + "DT");
+                                    String balance = String.format("%.3f", merchant.getBalance()) + "DT";
+                                    balanceTextView.setText(balance);
+                                    hiddenBalanceTextView.setText("**** DT");
                                 }
                             }
                         }

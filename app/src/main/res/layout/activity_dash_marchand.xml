@@ -165,11 +165,22 @@
                         android:id="@+id/textSolde"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 0.000 DT" 
+                        android:text=" 0.000 DT"
                         android:textSize="36sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textSoldeHidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="**** DT"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:visibility="gone" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_toggle_balance"

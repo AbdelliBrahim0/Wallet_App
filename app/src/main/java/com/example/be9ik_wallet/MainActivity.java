@@ -18,8 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvUserName, tvBalanceAmount;
-    private MaterialButton btnToggleBalance, btnProfile, btnReceiveMoney, btnSendMoney, btnTransactionHistory;
+    private TextView tvUserName, tvBalanceAmount, seeAllVouchers; // Add seeAllVouchers
+    private MaterialButton btnToggleBalance, btnProfile, btnReceiveMoney, btnSendMoney, btnTransactionHistory, btnUseBalance;
     private boolean isBalanceVisible = true;
 
     private FirebaseAuth mAuth;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         btnReceiveMoney = findViewById(R.id.btn_receive_money);
         btnSendMoney = findViewById(R.id.btn_send_money);
         btnTransactionHistory = findViewById(R.id.btn_transaction_history);
+        btnUseBalance = findViewById(R.id.btn_use_balance);
+        seeAllVouchers = findViewById(R.id.see_all_vouchers); // Initialize seeAllVouchers
 
         btnReceiveMoney.setOnClickListener(v -> showReceiveOptionsPopup());
         btnSendMoney.setOnClickListener(v -> {
@@ -59,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(MainActivity.this, "HistoriqueActivity introuvable", Toast.LENGTH_SHORT).show();
             }
+        });
+        btnUseBalance.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(MainActivity.this, ProfiterActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "Erreur lors de l'ouverture de ProfiterActivity", Toast.LENGTH_SHORT).show();
+            }
+        });
+        seeAllVouchers.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Voucher.class);
+            startActivity(intent);
         });
     }
 

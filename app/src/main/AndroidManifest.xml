@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Be9ik_Wallet"
         tools:targetApi="31">
         <activity
+            android:name=".Profiter"
+            android:exported="false" />
+        <activity
             android:name=".DashMarchand"
             android:exported="false" />
         <activity

@@ -1,11 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfiterActivity">
+    android:background="@android:color/black">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <ImageView
+      android:id="@+id/background_pattern"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:alpha="0.1"
+      android:scaleType="centerCrop"
+      android:src="@drawable/pattern_dots"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <View
+      android:id="@+id/top_gradient"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:background="@drawable/gradient_top_orange"
+      android:alpha="0.3"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ImageView
+      android:id="@+id/logo"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_marginTop="16dp"
+      android:src="@drawable/wallet"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.498"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/oranger" />
+
+  <TextView
+      android:id="@+id/title_solde"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-black"
+      android:text="PROFITER LE SOLDE"
+      android:textColor="@color/oranger"
+      android:textSize="28sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+  <TextView
+      android:id="@+id/subtitle_solde"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="sans-serif-light"
+      android:text="Économisez jusqu'à 50% sur nos services"
+      android:textColor="#CCCCCC"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/title_solde" />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/balance_card"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="24dp"
+      app:cardBackgroundColor="#1A1A1A"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/subtitle_solde">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="sans-serif-medium"
+          android:text="Votre Solde Actuel"
+          android:textColor="#AAAAAA"
+          android:textSize="14sp" />
+
+      <TextView
+          android:id="@+id/balance_amount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:fontFamily="sans-serif-black"
+          android:text="€ 250,00"
+          android:textColor="@color/oranger"
+          android:textSize="32sp"
+          android:textStyle="bold" />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp"
+          android:background="#333333" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:text="Dernière transaction:"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Hier, 15:30"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+      </LinearLayout>
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+  <TextView
+      android:id="@+id/section_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="32dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="SERVICES DISPONIBLES"
+      android:textColor="#AAAAAA"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/balance_card" />
+
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_payer_factures"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="24dp"
+      android:clickable="true"
+      android:focusable="true"
+      app:cardBackgroundColor="#1A1A1A"
+      app:cardCornerRadius="12dp"
+      app:cardElevation="4dp"
+      app:rippleColor="@color/oranger"
+      app:strokeColor="@color/oranger"
+      app:strokeWidth="1dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/section_title">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+      <ImageView
+          android:id="@+id/icon_factures"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:src="@drawable/ic_document"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+      <TextView
+          android:id="@+id/text_factures"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:fontFamily="sans-serif-medium"
+          android:text="Payer vos factures"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          app:layout_constraintBottom_toTopOf="@+id/text_factures_desc"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_factures"
+          app:layout_constraintStart_toEndOf="@+id/icon_factures"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+          android:id="@+id/text_factures_desc"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="4dp"
+          android:fontFamily="sans-serif"
+          android:text="Réglez vos factures rapidement et en toute sécurité"
+          android:textColor="#AAAAAA"
+          android:textSize="12sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_factures"
+          app:layout_constraintStart_toEndOf="@+id/icon_factures"
+          app:layout_constraintTop_toBottomOf="@+id/text_factures" />
+
+      <ImageView
+          android:id="@+id/arrow_factures"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:src="@drawable/ic_arrow_right"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </com.google.android.material.card.MaterialCardView>
+
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_acheter_voucher"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="24dp"
+      android:clickable="true"
+      android:focusable="true"
+      app:cardBackgroundColor="#1A1A1A"
+      app:cardCornerRadius="12dp"
+      app:cardElevation="4dp"
+      app:rippleColor="@color/oranger"
+      app:strokeColor="@color/oranger"
+      app:strokeWidth="1dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/card_payer_factures">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+      <ImageView
+          android:id="@+id/icon_voucher"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:src="@drawable/voucher"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+      <TextView
+          android:id="@+id/text_voucher"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:fontFamily="sans-serif-medium"
+          android:text="Acheter un voucher"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          app:layout_constraintBottom_toTopOf="@+id/text_voucher_desc"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_voucher"
+          app:layout_constraintStart_toEndOf="@+id/icon_voucher"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+          android:id="@+id/text_voucher_desc"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="4dp"
+          android:fontFamily="sans-serif"
+          android:text="Obtenez des réductions exclusives avec nos vouchers"
+          android:textColor="#AAAAAA"
+          android:textSize="12sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_voucher"
+          app:layout_constraintStart_toEndOf="@+id/icon_voucher"
+          app:layout_constraintTop_toBottomOf="@+id/text_voucher" />
+
+      <ImageView
+          android:id="@+id/arrow_voucher"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:src="@drawable/ic_arrow_right"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </com.google.android.material.card.MaterialCardView>
+
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_enchere_beta"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="24dp"
+      android:clickable="true"
+      android:focusable="true"
+      app:cardBackgroundColor="#1A1A1A"
+      app:cardCornerRadius="12dp"
+      app:cardElevation="4dp"
+      app:rippleColor="@color/oranger"
+      app:strokeColor="@color/oranger"
+      app:strokeWidth="1dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/card_acheter_voucher">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+      <ImageView
+          android:id="@+id/icon_enchere"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:src="@drawable/ic_auction"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+      <TextView
+          android:id="@+id/text_enchere"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:fontFamily="sans-serif-medium"
+          android:text="Enchère Beta"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          app:layout_constraintBottom_toTopOf="@+id/text_enchere_desc"
+          app:layout_constraintEnd_toStartOf="@+id/beta_badge"
+          app:layout_constraintStart_toEndOf="@+id/icon_enchere"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+          android:id="@+id/text_enchere_desc"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="4dp"
+          android:fontFamily="sans-serif"
+          android:text="Participez à nos enchères exclusives en version beta"
+          android:textColor="#AAAAAA"
+          android:textSize="12sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_enchere"
+          app:layout_constraintStart_toEndOf="@+id/icon_enchere"
+          app:layout_constraintTop_toBottomOf="@+id/text_enchere" />
+
+      <TextView
+          android:id="@+id/beta_badge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@drawable/badge_background"
+          android:fontFamily="sans-serif-black"
+          android:paddingStart="8dp"
+          android:paddingTop="2dp"
+          android:paddingEnd="8dp"
+          android:paddingBottom="2dp"
+          android:text="BETA"
+          android:textColor="#FFFFFF"
+          android:textSize="10sp"
+          app:layout_constraintEnd_toStartOf="@+id/arrow_enchere"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <ImageView
+          android:id="@+id/arrow_enchere"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:src="@drawable/ic_arrow_right"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/oranger" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </com.google.android.material.card.MaterialCardView>
+
+
+
+ 
+
+</androidx.constraintlayout.widget.ConstraintLayout>
