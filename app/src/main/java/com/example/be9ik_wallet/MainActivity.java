@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnReceiveMoney.setOnClickListener(v -> showReceiveOptionsPopup());
         btnSendMoney.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, EnvoyerArgentActivity.class);
+            Intent intent = new Intent(MainActivity.this, envoyer_argent.class);
             startActivity(intent);
         });
         btnTransactionHistory.setOnClickListener(v -> {

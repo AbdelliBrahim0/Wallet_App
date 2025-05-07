@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class UserClass {
-    private String id;
+    private String id_utilisateur;
     private String firstName;
     private String lastName;
     private String username;
@@ -106,12 +106,12 @@ public class UserClass {
     }
 
     // Getters et Setters
-    public String getId() {
-        return id;
+    public String getId_utilisateur() {
+        return id_utilisateur;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId_utilisateur(String id_utilisateur) {
+        this.id_utilisateur = id_utilisateur;
     }
 
     public String getFirstName() {
@@ -213,7 +213,7 @@ public class UserClass {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id_utilisateur='" + id_utilisateur + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +

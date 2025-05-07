@@ -164,7 +164,7 @@ public class SignupActivity extends AppCompatActivity {
                                     String phone, String gender) {
         UserClass user = new UserClass(firstName, lastName, username, email,
                 birthDate, phone, "", gender, true);
-        user.setId(userId);
+        user.setId_utilisateur(userId);
         user.setRole("user"); // Définir le rôle par défaut à "user"
 
         mDatabase.child(userId).setValue(user)

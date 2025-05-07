@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class MerchantClass implements Serializable {
-    private int id; // 4-digit ID
+    private int id_merchant; // 4-digit ID
     private String businessName;
     private String businessDomain;
     private String businessLocation;
@@ -29,7 +29,7 @@ public class MerchantClass implements Serializable {
                          String businessDescription, String ownerFirstName, String ownerLastName,
                          String ownerUsername, String ownerEmail, String ownerCIN,
                          String ownerPassword, boolean termsAccepted) {
-        this.id = generateId(); // Generate a 4-digit ID
+        this.id_merchant = generateId(); // Generate a 4-digit ID
         this.businessName = businessName;
         this.businessDomain = businessDomain;
         this.businessLocation = businessLocation;
@@ -52,12 +52,12 @@ public class MerchantClass implements Serializable {
     }
 
     // Getters and Setters
-    public int getId() {
-        return id;
+    public int getId_merchant() {
+        return id_merchant;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_merchant(int id_merchant) {
+        this.id_merchant = id_merchant;
     }
 
     public double getBalance() {
@@ -168,7 +168,7 @@ public class MerchantClass implements Serializable {
     @Override
     public String toString() {
         return "MerchantClass{" +
-                "id=" + id +
+                "id_merchant=" + id_merchant +
                 ", businessName='" + businessName + '\'' +
                 ", businessDomain='" + businessDomain + '\'' +
                 ", businessLocation='" + businessLocation + '\'' +
