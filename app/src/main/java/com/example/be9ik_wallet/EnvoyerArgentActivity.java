@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class envoyer_argent extends AppCompatActivity {
+public class EnvoyerArgentActivity extends AppCompatActivity {
     private TextInputEditText editTextIdRecepteur, editTextMontant;
     private MaterialButton btnPoursuivre, btnScannerQR;
     private DatabaseReference mDatabase;
@@ -101,13 +101,13 @@ public class envoyer_argent extends AppCompatActivity {
                     // Afficher le dialogue du code de transaction
                     showTransactionCodeDialog(sender, recepteurId, montant);
                 } else {
-                    Toast.makeText(envoyer_argent.this, "Solde insuffisant", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EnvoyerArgentActivity.this, "Solde insuffisant", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(envoyer_argent.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EnvoyerArgentActivity.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,7 +144,7 @@ public class envoyer_argent extends AppCompatActivity {
                     // Vérifier si le récepteur existe
                     verifyReceiverAndTransfer(sender, recepteurId, montant);
                 } else {
-                    Toast.makeText(this, "Code de transaction incorrect (" + code + " != " + expectedCode + ")", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Code de transaction incorrect", Toast.LENGTH_SHORT).show();
                 }
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Code invalide", Toast.LENGTH_SHORT).show();
@@ -167,13 +167,13 @@ public class envoyer_argent extends AppCompatActivity {
                         performTransfer(sender, receiver, montant);
                     }
                 } else {
-                    Toast.makeText(envoyer_argent.this, "ID récepteur invalide", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EnvoyerArgentActivity.this, "ID récepteur invalide", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(envoyer_argent.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EnvoyerArgentActivity.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -238,13 +238,13 @@ public class envoyer_argent extends AppCompatActivity {
                     // Afficher le ticket de transfert sur le thread principal
                     runOnUiThread(() -> {
                         showTransferTicket(sender, receiver, montant);
-                        Toast.makeText(envoyer_argent.this, "Transfert réussi!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EnvoyerArgentActivity.this, "Transfert réussi!", Toast.LENGTH_SHORT).show();
                     });
                 })
                 .addOnFailureListener(e -> {
                     runOnUiThread(() -> {
                         String errorMsg = "Erreur lors du transfert: " + e.getMessage();
-                        Toast.makeText(envoyer_argent.this, errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(EnvoyerArgentActivity.this, errorMsg, Toast.LENGTH_LONG).show();
                         Log.e("TransferError", errorMsg, e);
                     });
                 });
@@ -272,7 +272,7 @@ public class envoyer_argent extends AppCompatActivity {
 
         // Remplir les informations
         tvDate.setText(currentDate);
-        tvMontant.setText(String.format(Locale.getDefault(), "%.2f €", montant));
+        tvMontant.setText(String.format(Locale.getDefault(), "%.2f DT", montant));
         tvEmetteur.setText(sender.getUsername());
         tvRecepteur.setText(receiver.getUsername());
 
@@ -283,4 +283,4 @@ public class envoyer_argent extends AppCompatActivity {
 
         dialog.show();
     }
-}
+} 

@@ -32,7 +32,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="Historique"
+                app:titleTextColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,38 +69,9 @@
                         android:textColor="@android:color/white"
                         android:layout_weight="1" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_search"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:icon="@drawable/ic_search"
-                        app:iconTint="#E0E0E0"
-                        android:contentDescription="Rechercher"
-                        app:backgroundTint="#2b2b2b"
-                        app:cornerRadius="12dp"
-                        app:iconPadding="0dp"
-                        app:iconGravity="textStart"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:layout_marginEnd="8dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_filter"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:icon="@drawable/ic_filter"
-                        app:iconTint="#E0E0E0"
-                        android:contentDescription="Filtrer"
-                        app:backgroundTint="#2b2b2b"
-                        app:cornerRadius="12dp"
-                        app:iconPadding="0dp"
-                        app:iconGravity="textStart"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp" />
+
+
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -151,7 +125,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Revenus"
+                                    android:text="Recu"
                                     android:textSize="14sp"
                                     android:textColor="#9E9E9E" />
 
@@ -181,7 +155,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Dépenses"
+                                    android:text="Envoyé"
                                     android:textSize="14sp"
                                     android:textColor="#9E9E9E" />
 
@@ -243,56 +217,6 @@
                         app:selectionRequired="true"
                         app:chipSpacingHorizontal="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_all"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tous"
-                            android:textColor="@android:color/white"
-                            app:chipBackgroundColor="#2b2b2b"
-                            app:chipStrokeColor="#FF9800"
-                            app:chipStrokeWidth="1dp"
-                            android:checked="true" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_income"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Revenus"
-                            android:textColor="@android:color/white"
-                            app:chipBackgroundColor="#2b2b2b"
-                            app:chipStrokeColor="#4CAF50"
-                            app:chipStrokeWidth="1dp" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_expense"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dépenses"
-                            android:textColor="@android:color/white"
-                            app:chipBackgroundColor="#2b2b2b"
-                            app:chipStrokeColor="#FF5252"
-                            app:chipStrokeWidth="1dp" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_transfers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Transferts"
-                            android:textColor="@android:color/white"
-                            app:chipBackgroundColor="#2b2b2b"
-                            app:chipStrokeColor="#2196F3"
-                            app:chipStrokeWidth="1dp" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_vouchers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Vouchers"
-                            android:textColor="@android:color/white"
-                            app:chipBackgroundColor="#2b2b2b"
-                            app:chipStrokeColor="#FF9800"
-                            app:chipStrokeWidth="1dp" />
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
             </LinearLayout>
@@ -313,472 +237,101 @@
             android:paddingEnd="20dp"
             android:paddingBottom="24dp">
 
-            <!-- Today Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aujourd'hui"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Transaction Item 1 -->
+            <!-- Barre de recherche -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
+                app:strokeColor="#333333">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
+                    android:background="@color/couche3">
 
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_store"
-                        android:contentDescription="Shopping icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF5252"
-                        android:padding="12dp"
-                        app:tint="#FF5252"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:hint="Rechercher une transaction"
+                        app:hintTextColor="@color/oranger"
+                        app:boxBackgroundColor="#2b2b2b"
+                        app:boxStrokeWidth="0dp"
+                        app:startIconDrawable="@drawable/ic_search"
+                        app:startIconTint="@color/oranger">
 
-                        <TextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/searchEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Filtres -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:scrollbars="none">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/filterChipGroup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Amazon"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
+                            app:singleSelection="true"
+                            app:selectionRequired="true">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="14:30 • Shopping"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipAll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tout"
+                                android:checked="true"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 50.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Envoyés"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipReceived"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Reçus"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </HorizontalScrollView>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Transaction Item 2 -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- RecyclerView pour les transactions -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/transactionsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_receive"
-                        android:contentDescription="Transfer icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#334CAF50"
-                        android:padding="12dp"
-                        app:tint="#4CAF50"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Virement reçu"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="11:15 • Marie Dupont"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+€ 120.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#4CAF50" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Yesterday Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hier"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Transaction Item 3 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_restaurant"
-                        android:contentDescription="Restaurant icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF5252"
-                        android:padding="12dp"
-                        app:tint="#FF5252"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Restaurant Le Gourmet"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="20:45 • Restauration"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 35.50"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Transaction Item 4 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_transport"
-                        android:contentDescription="Transport icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF5252"
-                        android:padding="12dp"
-                        app:tint="#FF5252"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Uber"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15:20 • Transport"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 12.75"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- This Week Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cette semaine"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Transaction Item 5 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_gift"
-                        android:contentDescription="Voucher icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF9800"
-                        android:padding="12dp"
-                        app:tint="#FF9800"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Voucher Food"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lundi, 10:30 • Rechargement"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 100.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Transaction Item 6 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ich_money"
-                        android:contentDescription="Salary icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#334CAF50"
-                        android:padding="12dp"
-                        app:tint="#4CAF50"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Salaire"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lundi, 08:00 • Entreprise XYZ"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+€ 2,500.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#4CAF50" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Transaction Item 7 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_send"
-                        android:contentDescription="Transfer icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#332196F3"
-                        android:padding="12dp"
-                        app:tint="#2196F3"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Transfert vers épargne"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dimanche, 19:45 • Compte épargne"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 500.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#2196F3" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <!-- Load More Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_load_more"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Voir plus de transactions"
+                android:text="Voir les paiements "
                 android:textAllCaps="false"
                 app:backgroundTint="#2b2b2b"
                 app:strokeColor="#FF9800"
@@ -788,17 +341,5 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- FAB for Export/Share -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_export"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_share"
-        app:backgroundTint="#FF9800"
-        app:tint="@android:color/white"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        android:contentDescription="Exporter ou partager l'historique" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

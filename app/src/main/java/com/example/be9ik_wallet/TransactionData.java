@@ -1,6 +1,8 @@
 package com.example.be9ik_wallet;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class TransactionData {
     private String transactionId;
@@ -91,5 +93,18 @@ public class TransactionData {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return sdf.format(new Date(timestamp));
+    }
+
+    public String getDescription() {
+        if ("SENT".equals(type)) {
+            return "Envoyé à " + receiverName;
+        } else {
+            return "Reçu de " + senderName;
+        }
     }
 } 

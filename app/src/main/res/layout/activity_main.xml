@@ -210,6 +210,7 @@
                             android:textColor="#9E9E9E" />
 
                         <TextView
+                            android:id="@+id/betacoin_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -239,6 +240,7 @@
                             android:textColor="#9E9E9E" />
 
                         <TextView
+                            android:id="@+id/depenses_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -703,7 +705,7 @@
             </HorizontalScrollView>
         </LinearLayout>
 
-        <!-- Recent Transactions Section - Professional Black & Orange Design -->
+        <!-- Recent Transactions Section -->
         <LinearLayout
             android:id="@+id/recent_transactions"
             android:layout_width="match_parent"
@@ -712,6 +714,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="32dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -740,211 +743,13 @@
                     android:padding="8dp" />
             </LinearLayout>
 
-            <!-- Transaction Item 1 -->
-            <com.google.android.material.card.MaterialCardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recent_transactions_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_use"
-                        android:contentDescription="Shopping icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF9800"
-                        android:padding="12dp"
-                        app:tint="#FF9800"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Amazon"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Aujourd'hui, 14:30"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 50.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Transaction Item 2 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/transaction_icon_background"
-                        android:contentDescription="Transfer icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#334CAF50"
-                        android:padding="12dp"
-                        app:tint="#4CAF50"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Virement reçu"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hier, 09:15"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+€ 120.00"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#4CAF50" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Transaction Item 3 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#333333">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="#161616"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_restaurant"
-                        android:contentDescription="Restaurant icon"
-                        android:background="@drawable/transaction_icon_background"
-                        android:backgroundTint="#33FF9800"
-                        android:padding="12dp"
-                        app:tint="#FF9800"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Restaurant Le Gourmet"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hier, 20:45"
-                            android:textSize="12sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-€ 35.50"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FF5252" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-
-        <!-- NEW: Bottom Navigation Bar -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bottom_navigation_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recent_transactions"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="16dp">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#161616"
-                app:itemIconTint="@color/bottom_nav_colors"
-                app:itemTextColor="@color/bottom_nav_colors"
-                app:itemRippleColor="#33FF9800"
-                app:menu="@menu/bottom_navigation_menu" />
-        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 </ScrollView>

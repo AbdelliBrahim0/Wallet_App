@@ -21,20 +21,22 @@ public class UserClass {
     private int codeTransaction;
     private List<String> voucherTab;
     private float balance;
-    private int betaCoin; // Nouveau champ
-    private boolean verified; // Nouveau champ
-    private String dateSignUp; // Nouveau champ
-    private String role; // Nouveau champ
+    private int betaCoins;
+    private boolean verified;
+    private String dateSignUp;
+    private String role;
+    private Double depenses;
 
     // Constructor vide
     public UserClass() {
         this.codeTransaction = generateTransactionCode();
         this.voucherTab = new ArrayList<>();
         this.balance = 0.0f;
-        this.betaCoin = 0; // Initialisé à 0
-        this.verified = false; // Initialisé à false
-        this.dateSignUp = getCurrentDate(); // Date actuelle
-        this.role = "user"; // Initialisé à "user"
+        this.betaCoins = 0;
+        this.verified = false;
+        this.dateSignUp = getCurrentDate();
+        this.role = "user";
+        this.depenses = 0.0;
     }
 
     // Constructor pour le formulaire
@@ -53,10 +55,37 @@ public class UserClass {
         this.codeTransaction = generateTransactionCode();
         this.voucherTab = new ArrayList<>();
         this.balance = 0.0f;
-        this.betaCoin = 0; // Initialisé à 0
-        this.verified = false; // Initialisé à false
-        this.dateSignUp = getCurrentDate(); // Date actuelle
-        this.role = "user"; // Initialisé à "user"
+        this.betaCoins = 0;
+        this.verified = false;
+        this.dateSignUp = getCurrentDate();
+        this.role = "user";
+        this.depenses = 0.0;
+    }
+
+    // Méthodes utilitaires pour les transferts
+    public boolean canSendAmount(float amount) {
+        return this.balance >= amount && amount > 0;
+    }
+
+    public void addToBalance(float amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            if (this.depenses == null) {
+                this.depenses = 0.0;
+            }
+        }
+    }
+
+    public boolean subtractFromBalance(float amount) {
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount;
+            if (this.depenses == null) {
+                this.depenses = 0.0;
+            }
+            this.depenses += amount;
+            return true;
+        }
+        return false;
     }
 
     // Méthode pour générer un code de transaction aléatoire à 4 chiffres
@@ -71,13 +100,24 @@ public class UserClass {
         return sdf.format(new Date());
     }
 
-    // Getters et Setters pour les nouveaux champs
-    public int getBetaCoin() {
-        return betaCoin;
+    // Getters et Setters
+    public int getBetaCoins() {
+        return betaCoins;
     }
 
-    public void setBetaCoin(int betaCoin) {
-        this.betaCoin = betaCoin;
+    public void setBetaCoins(int betaCoins) {
+        this.betaCoins = betaCoins;
+    }
+
+    // Pour la compatibilité avec Firebase, on garde aussi getBetacoin
+    public Integer getBetacoin() {
+        return betaCoins;
+    }
+
+    public void setBetacoin(Integer betacoin) {
+        if (betacoin != null) {
+            this.betaCoins = betacoin;
+        }
     }
 
     public boolean isVerified() {
@@ -96,7 +136,6 @@ public class UserClass {
         this.dateSignUp = dateSignUp;
     }
 
-    // Getters et Setters pour le nouveau champ
     public String getRole() {
         return role;
     }
@@ -105,7 +144,6 @@ public class UserClass {
         this.role = role;
     }
 
-    // Getters et Setters
     public String getId_utilisateur() {
         return id_utilisateur;
     }
@@ -210,6 +248,14 @@ public class UserClass {
         this.balance = balance;
     }
 
+    public Double getDepenses() {
+        return depenses;
+    }
+
+    public void setDepenses(Double depenses) {
+        this.depenses = depenses;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -226,7 +272,10 @@ public class UserClass {
                 ", codeTransaction=" + codeTransaction +
                 ", voucherTab=" + voucherTab +
                 ", balance=" + balance +
+                ", betaCoins=" + betaCoins +
+                ", verified=" + verified +
                 ", role='" + role + '\'' +
+                ", depenses=" + depenses +
                 '}';
     }
 }
