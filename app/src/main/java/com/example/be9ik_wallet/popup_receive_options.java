@@ -3,6 +3,7 @@ package com.example.be9ik_wallet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,17 +39,19 @@ public class popup_receive_options extends AppCompatActivity {
         btnCodeCadeau.setOnClickListener(v -> {
             Intent intent = new Intent(popup_receive_options.this, CodeCadeau.class);
             startActivity(intent);
+            finish();
         });
 
         btnLbe9i.setOnClickListener(v -> {
-            Intent intent = new Intent(popup_receive_options.this, Be9iActivity.class);
+            Intent intent = new Intent(popup_receive_options.this, Be9i.class);
             startActivity(intent);
-        });
-
-
-        btnFermer.setOnClickListener(v -> {
-            // Close the activity
             finish();
         });
+
+        btnTransfere.setOnClickListener(v -> {
+            Toast.makeText(this, "Fonctionnalité à venir", Toast.LENGTH_SHORT).show();
+        });
+
+        btnFermer.setOnClickListener(v -> finish());
     }
 }

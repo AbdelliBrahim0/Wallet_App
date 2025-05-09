@@ -26,6 +26,8 @@ public class UserClass {
     private String dateSignUp;
     private String role;
     private Double depenses;
+    private String ownerCIN;
+    private boolean isMerchant;
 
     // Constructor vide
     public UserClass() {
@@ -37,6 +39,7 @@ public class UserClass {
         this.dateSignUp = getCurrentDate();
         this.role = "user";
         this.depenses = 0.0;
+        this.isMerchant = false;
     }
 
     // Constructor pour le formulaire
@@ -60,6 +63,7 @@ public class UserClass {
         this.dateSignUp = getCurrentDate();
         this.role = "user";
         this.depenses = 0.0;
+        this.isMerchant = false;
     }
 
     // Méthodes utilitaires pour les transferts
@@ -256,6 +260,22 @@ public class UserClass {
         this.depenses = depenses;
     }
 
+    public String getOwnerCIN() {
+        return ownerCIN;
+    }
+
+    public void setOwnerCIN(String ownerCIN) {
+        this.ownerCIN = ownerCIN;
+    }
+
+    public boolean isMerchant() {
+        return isMerchant;
+    }
+
+    public void setMerchant(boolean merchant) {
+        isMerchant = merchant;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -276,6 +296,8 @@ public class UserClass {
                 ", verified=" + verified +
                 ", role='" + role + '\'' +
                 ", depenses=" + depenses +
+                ", ownerCIN='" + ownerCIN + '\'' +
+                ", isMerchant=" + isMerchant +
                 '}';
     }
 }

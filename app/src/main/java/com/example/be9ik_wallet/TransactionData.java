@@ -11,26 +11,47 @@ public class TransactionData {
     private String senderName;
     private String receiverName;
     private double amount;
+    private String type;  // "SENT", "RECEIVED", "CREDIT", "DEBIT"
     private long timestamp;
-    private String type; // "SENT" ou "RECEIVED"
+    private String description;
+    private String otherPartyId;
 
-    // Constructeur vide requis pour Firebase
-    public TransactionData() {
+    // Required empty constructor for Firebase
+    public TransactionData() {}
+
+    // Constructor for new merchant payment system
+    public TransactionData(String transactionId, String type, double amount, String otherPartyId, String description, long timestamp) {
+        this.transactionId = transactionId;
+        this.type = type;
+        this.amount = amount;
+        this.otherPartyId = otherPartyId;
+        this.description = description;
+        this.timestamp = timestamp;
     }
 
+    // Constructor for existing send money system
     public TransactionData(String transactionId, String senderId, String receiverId, 
-                      String senderName, String receiverName, double amount, String type) {
+                         String senderName, String receiverName, float amount, String type) {
         this.transactionId = transactionId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.senderName = senderName;
         this.receiverName = receiverName;
         this.amount = amount;
-        this.timestamp = new Date().getTime();
         this.type = type;
+        this.timestamp = new Date().getTime();
+        
+        // Set description based on type
+        if ("SENT".equals(type)) {
+            this.description = "Envoyé à " + receiverName;
+            this.otherPartyId = receiverId;
+        } else {
+            this.description = "Reçu de " + senderName;
+            this.otherPartyId = senderId;
+        }
     }
 
-    // Getters et Setters
+    // Getters and setters
     public String getTransactionId() {
         return transactionId;
     }
@@ -71,12 +92,40 @@ public class TransactionData {
         this.receiverName = receiverName;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public double getAmount() {
         return amount;
     }
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getOtherPartyId() {
+        return otherPartyId;
+    }
+
+    public void setOtherPartyId(String otherPartyId) {
+        this.otherPartyId = otherPartyId;
+    }
+
+    public String getDescription() {
+        if (description != null) {
+            return description;
+        }
+        // Fallback for old transactions
+        return "SENT".equals(type) ? "Envoyé à " + receiverName : "Reçu de " + senderName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getTimestamp() {
@@ -87,24 +136,8 @@ public class TransactionData {
         this.timestamp = timestamp;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getFormattedDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         return sdf.format(new Date(timestamp));
-    }
-
-    public String getDescription() {
-        if ("SENT".equals(type)) {
-            return "Envoyé à " + receiverName;
-        } else {
-            return "Reçu de " + senderName;
-        }
     }
 } 
