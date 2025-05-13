@@ -1,282 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/main"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fillViewport="true"
-    tools:context=".Voucher">
+    android:background="#121212">
 
-    <RelativeLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="32dp">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <!-- Professional Top App Bar -->
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/top_bar_layout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:elevation="0dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/top_bar"
+            <!-- Balance Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:contentInsetStart="16dp">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#1E1E1E">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="12dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_back"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:icon="@drawable/ic_arrow_back"
-                        app:iconTint="#E0E0E0"
-                        android:contentDescription="Retour"
-                        app:backgroundTint="#2b2b2b"
-                        app:cornerRadius="12dp"
-                        app:iconPadding="0dp"
-                        app:iconGravity="textStart"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:layout_marginEnd="12dp" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vouchers"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:layout_weight="1" />
+                        android:text="Solde Disponible"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="14sp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_help"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:icon="@drawable/ic_help"
-                        app:iconTint="#E0E0E0"
-                        android:contentDescription="Aide"
-                        app:backgroundTint="#2b2b2b"
-                        app:cornerRadius="12dp"
-                        app:iconPadding="0dp"
-                        app:iconGravity="textStart"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp" />
-                </LinearLayout>
-            </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <!-- Balance Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/balance_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/top_bar_layout"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#333333">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:background="@drawable/premium_card_background">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Solde disponible"
-                    android:textSize="14sp"
-                    android:textColor="#9E9E9E"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/balance_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="€ 2,458.50"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Buy Voucher Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/buy_voucher_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/balance_card"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#333333">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:background="#161616">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_gift"
-                        android:contentDescription="Gift icon"
-                        android:background="@drawable/icon_background_circle_orange"
-                        android:padding="12dp"
-                        android:layout_marginEnd="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/balance_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_marginTop="8dp"
+                        android:text="0.00 DT"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Acheter un nouveau voucher"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Choisissez parmi une variété de vouchers pour vos besoins quotidiens"
-                            android:textSize="14sp"
-                            android:textColor="#9E9E9E" />
-                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- Buy Voucher Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buyVoucherButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="Acheter un voucher"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="false"
-                    app:icon="@drawable/circle_shape"
-                    app:iconGravity="textStart"
-                    app:iconPadding="12dp"
-                    app:backgroundTint="#FF9800"
-                    app:cornerRadius="12dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- Available Vouchers Section -->
-        <LinearLayout
-            android:id="@+id/available_vouchers_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/buy_voucher_card"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="vertical">
-
-            <TextView
+            <!-- Buy Voucher Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buyVoucherButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Vouchers disponibles"
-                android:textSize="20sp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:text="Acheter un voucher"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="16dp" />
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:backgroundTint="#FF9800"
+                app:cornerRadius="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
 
-            <!-- RecyclerView for Available Vouchers -->
+            <!-- Vouchers List -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Mes Vouchers"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/voucherRecyclerView"
+                android:id="@+id/vouchers_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_voucher"
-                tools:itemCount="2" />
+                android:nestedScrollingEnabled="false" />
+
         </LinearLayout>
 
-        <!-- Purchased Vouchers Section -->
-        <LinearLayout
-            android:id="@+id/purchased_vouchers_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/available_vouchers_section"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="vertical">
+    </androidx.core.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:id="@+id/purchasedVouchersTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Vos vouchers achetés"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/see_all_vouchers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Voir tout"
-                    android:textSize="14sp"
-                    android:textColor="#FF9800"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- RecyclerView for Purchased Vouchers -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/purchasedVoucherRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_purchased_voucher"
-                tools:itemCount="3" />
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

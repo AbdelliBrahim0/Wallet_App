@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private TextView tvUserName, tvBalanceAmount;
     private MaterialButton btnToggleBalance, btnProfile, btnReceiveMoney, btnSendMoney;
@@ -212,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
 
                             // Charger les transactions récentes
                             loadRecentTransactions();
+                            
+                            // Charger les vouchers
+                            loadUserVouchers();
                         } else {
                             System.out.println("Erreur: Objet utilisateur null");
                             Toast.makeText(MainActivity.this, "Erreur: Données utilisateur non valides", Toast.LENGTH_LONG).show();
@@ -300,6 +313,164 @@ public class MainActivity extends AppCompatActivity {
                 transactionsAdapter.showError(true, "Erreur système");
             }
         }
+    }
+
+    private void loadUserVouchers() {
+        mDatabase.child("vouchers")
+                .orderByChild("userId")
+                .equalTo(currentUserId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        try {
+                            // Mettre à jour l'UI avec les vouchers
+                            updateVouchersUI(snapshot);
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error updating vouchers UI", e);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e(TAG, "Error loading vouchers", error.toException());
+                    }
+                });
+    }
+
+    private void updateVouchersUI(DataSnapshot snapshot) {
+        // Mettre à jour les cartes de vouchers dans le HorizontalScrollView
+        LinearLayout voucherContainer = findViewById(R.id.voucher_container);
+        if (voucherContainer == null) return;
+
+        voucherContainer.removeAllViews();
+
+        if (!snapshot.exists() || !snapshot.hasChildren()) {
+            // Afficher un message si aucun voucher
+            TextView noVouchersText = new TextView(this);
+            noVouchersText.setText("Aucun voucher disponible");
+            noVouchersText.setTextColor(getResources().getColor(android.R.color.white));
+            noVouchersText.setTextSize(16);
+            noVouchersText.setPadding(32, 32, 32, 32);
+            voucherContainer.addView(noVouchersText);
+            return;
+        }
+
+        for (DataSnapshot voucherSnapshot : snapshot.getChildren()) {
+            VoucherClass voucher = voucherSnapshot.getValue(VoucherClass.class);
+            if (voucher != null) {
+                // Créer une carte pour chaque voucher
+                MaterialCardView voucherCard = createVoucherCard(voucher);
+                voucherContainer.addView(voucherCard);
+            }
+        }
+    }
+
+    private MaterialCardView createVoucherCard(VoucherClass voucher) {
+        // Créer la carte
+        MaterialCardView card = new MaterialCardView(this);
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                (int) getResources().getDimension(R.dimen.voucher_card_width),
+                (int) getResources().getDimension(R.dimen.voucher_card_height)
+        );
+        cardParams.setMargins(20, 20, 20, 20);
+        card.setLayoutParams(cardParams);
+        card.setRadius(24);
+        card.setCardElevation(16);
+        card.setStrokeWidth(0);
+        card.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        // Créer le layout principal
+        RelativeLayout layout = new RelativeLayout(this);
+        layout.setBackgroundResource(R.drawable.voucher_card_background);
+        layout.setPadding(32, 32, 32, 32);
+
+        // Ajouter l'icône avec un fond circulaire orange
+        ImageView icon = new ImageView(this);
+        icon.setImageResource(voucher.getType().contains("Food") ? 
+                R.drawable.ic_food : R.drawable.ic_coffee);
+        icon.setBackgroundResource(R.drawable.icon_background_circle_orange);
+        icon.setPadding(18, 18, 18, 18);
+        RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(72, 72);
+        iconParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        iconParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+        layout.addView(icon, iconParams);
+
+        // Ajouter le nom du voucher avec style amélioré
+        TextView nameText = new TextView(this);
+        nameText.setText(voucher.getType());
+        nameText.setTextColor(getResources().getColor(android.R.color.white));
+        nameText.setTextSize(28);
+        nameText.setTypeface(null, Typeface.BOLD);
+        nameText.setShadowLayer(8, 0, 2, Color.parseColor("#40000000"));
+        RelativeLayout.LayoutParams nameParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        nameParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        nameParams.addRule(RelativeLayout.END_OF, icon.getId());
+        nameParams.setMarginStart(28);
+        layout.addView(nameText, nameParams);
+
+        // Ajouter le montant avec style amélioré
+        TextView amountText = new TextView(this);
+        amountText.setText(String.format("%.2f DT", voucher.getAmount()));
+        amountText.setTextColor(Color.parseColor("#FF9800"));
+        amountText.setTextSize(24);
+        amountText.setTypeface(null, Typeface.BOLD);
+        amountText.setShadowLayer(8, 0, 2, Color.parseColor("#40000000"));
+        RelativeLayout.LayoutParams amountParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        amountParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        amountParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        layout.addView(amountText, amountParams);
+
+        // Ajouter une ligne décorative plus élégante
+        View divider = new View(this);
+        divider.setBackgroundColor(Color.parseColor("#FF9800"));
+        divider.setAlpha(0.12f);
+        RelativeLayout.LayoutParams dividerParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                1
+        );
+        dividerParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        dividerParams.setMargins(0, 20, 0, 20);
+        layout.addView(divider, dividerParams);
+
+        // Ajouter le code avec style amélioré
+        TextView codeText = new TextView(this);
+        codeText.setText("**** " + voucher.getCode());
+        codeText.setTextColor(Color.parseColor("#FF9800"));
+        codeText.setTextSize(22);
+        codeText.setTypeface(null, Typeface.BOLD);
+        codeText.setShadowLayer(8, 0, 2, Color.parseColor("#40000000"));
+        RelativeLayout.LayoutParams codeParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        codeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        codeParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        layout.addView(codeText, codeParams);
+
+        // Ajouter la date avec style amélioré
+        TextView dateText = new TextView(this);
+        dateText.setText("Acheté le " + new java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                .format(new java.util.Date(voucher.getPurchaseDate())));
+        dateText.setTextColor(getResources().getColor(android.R.color.white));
+        dateText.setTextSize(14);
+        dateText.setAlpha(0.5f);
+        dateText.setShadowLayer(6, 0, 1, Color.parseColor("#40000000"));
+        RelativeLayout.LayoutParams dateParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        dateParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        dateParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+        layout.addView(dateText, dateParams);
+
+        card.addView(layout);
+        return card;
     }
 
     private void showReceiveOptionsPopup() {

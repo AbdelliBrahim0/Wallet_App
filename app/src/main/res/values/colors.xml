@@ -29,4 +29,12 @@
     <color name="verified_chip_background">#3300FF08</color>  <!-- Fond orange transparent -->
     <color name="unverified_chip_background">#33F44336</color> <!-- Fond rouge transparent -->
     <color name="particle_color">#33FFFFFF</color>
+    <color name="primary_dark">#F57C00</color>
+    <color name="accent">#FFC107</color>
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="error">#CF6679</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="stroke_color">#333333</color>
 </resources>

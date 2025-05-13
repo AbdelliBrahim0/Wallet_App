@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Permission pour accéder à internet (nécessaire pour Firebase) -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission optionnelle pour accéder au réseau (pour certaines fonctionnalités) -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Permission pour accéder à la caméra (nécessaire pour scanner les QR codes) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Permission pour accéder à la caméra (nécessaire pour scanner les QR codes) -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Be9ik_Wallet"
         tools:targetApi="31">
+        <activity
+            android:name=".AcheterVoucher"
+            android:exported="false" />
         <activity
             android:name=".partenaires"
             android:exported="false" />
@@ -44,7 +49,8 @@
             android:exported="false" />
         <activity
             android:name=".Voucher"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Be9ik_Wallet" />
         <activity
             android:name=".ProfiterActivity"
             android:exported="false" />
@@ -103,10 +109,11 @@
                 android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
+
         <activity
             android:name=".QRScannerActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

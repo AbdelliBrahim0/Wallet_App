@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fond principal sombre -->
+    <item>
+        <shape>
+            <solid android:color="#343434"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+    
+    <!-- Effet de brillance supérieur -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="2dp">
+        <shape>
+            <gradient
+                android:startColor="#4DFFFFFF"
+                android:centerColor="#1AFFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="0"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+    
+    <!-- Effet de brillance latéral -->
+    <item android:top="0dp" android:bottom="0dp" android:left="0dp" android:width="2dp">
+        <shape>
+            <gradient
+                android:startColor="#33FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="90"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+    
+    <!-- Bordure orange avec effet de brillance -->
+    <item>
+        <shape>
+            <stroke
+                android:width="1dp"
+                android:color="#FF9800"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+    
+    <!-- Effet de brillance sur la bordure -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="1dp">
+        <shape>
+            <gradient
+                android:startColor="#99FF9800"
+                android:centerColor="#66FF9800"
+                android:endColor="#00FF9800"
+                android:angle="0"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+    
+    <!-- Motif décoratif -->
+    <item android:top="0dp" android:bottom="0dp" android:left="0dp" android:right="0dp">
+        <shape>
+            <gradient
+                android:startColor="#0DFF9800"
+                android:endColor="#00FF9800"
+                android:angle="135"/>
+            <corners android:radius="24dp"/>
+        </shape>
+    </item>
+</layer-list> 
