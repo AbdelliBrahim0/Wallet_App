@@ -1,12 +1,20 @@
 package com.example.be9ik_wallet;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,17 +28,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class Be9i extends AppCompatActivity {
-    private MaterialButton btnBack, btnValidate;
+    private MaterialButton btnBack, btnValidate, btnScanQrCode;
     private TextInputEditText editTextSellerId, editTextAmount;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String currentUserId;
+    private static final int CAMERA_PERMISSION_REQUEST = 100;
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    startQRScanner();
+                } else {
+                    Toast.makeText(this, "Permission de la caméra requise pour scanner le QR code", Toast.LENGTH_SHORT).show();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +70,7 @@ public class Be9i extends AppCompatActivity {
     private void initializeViews() {
         btnBack = findViewById(R.id.btn_back);
         btnValidate = findViewById(R.id.buttonValidate);
+        btnScanQrCode = findViewById(R.id.buttonScanQrCode);
         editTextSellerId = findViewById(R.id.editTextSellerId);
         editTextAmount = findViewById(R.id.editTextAmount);
     }
@@ -57,6 +78,96 @@ public class Be9i extends AppCompatActivity {
     private void setupClickListeners() {
         btnBack.setOnClickListener(v -> finish());
         btnValidate.setOnClickListener(v -> validatePayment());
+        btnScanQrCode.setOnClickListener(v -> checkCameraPermissionAndScan());
+    }
+
+    private void checkCameraPermissionAndScan() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+        } else {
+            startQRScanner();
+        }
+    }
+
+    private void startQRScanner() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        integrator.setPrompt("Scannez le QR code du marchand");
+        integrator.setCameraId(0);  // Use back camera
+        integrator.setBeepEnabled(true);
+        integrator.setBarcodeImageEnabled(true);
+        integrator.setOrientationLocked(true); // Lock orientation
+        integrator.setCaptureActivity(QRScannerActivity.class); // Use custom capture activity
+        integrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                String scannedContent = result.getContents();
+                Log.d("QRScan", "Contenu scanné brut: " + scannedContent);
+                
+                // Vérifier si le contenu scanné est un ID marchand valide
+                if (scannedContent.matches("[a-zA-Z0-9_-]+")) {
+                    Log.d("QRScan", "Format ID valide détecté");
+                    verifyAndSetMerchantId(scannedContent);
+                } else {
+                    Log.e("QRScan", "Format ID invalide: " + scannedContent);
+                    Toast.makeText(this, "QR code invalide", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Scan annulé", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void verifyAndSetMerchantId(String merchantId) {
+        Log.d("QRScan", "Vérification de l'ID marchand: " + merchantId);
+        
+        // Rechercher le marchand par son ID dans la collection merchants
+        mDatabase.child("merchants").orderByChild("id_merchant").equalTo(Integer.parseInt(merchantId))
+            .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Log.d("QRScan", "Réponse de la base de données - Existe: " + snapshot.exists());
+                    if (snapshot.exists()) {
+                        // Récupérer le premier (et unique) marchand trouvé
+                        DataSnapshot merchantSnapshot = snapshot.getChildren().iterator().next();
+                        MerchantClass merchant = merchantSnapshot.getValue(MerchantClass.class);
+                        
+                        if (merchant != null) {
+                            Log.d("QRScan", "Marchand trouvé: " + merchant.getBusinessName());
+                            editTextSellerId.setText(String.valueOf(merchant.getId_merchant()));
+                            Toast.makeText(Be9i.this, 
+                                "Marchand trouvé: " + merchant.getBusinessName(), 
+                                Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("QRScan", "Erreur lors de la conversion des données du marchand");
+                            Toast.makeText(Be9i.this, 
+                                "Erreur lors de la lecture des données du marchand", 
+                                Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.e("QRScan", "Aucun marchand trouvé pour l'ID: " + merchantId);
+                        Toast.makeText(Be9i.this, 
+                            "Marchand non trouvé", 
+                            Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.e("QRScan", "Erreur de base de données: " + error.getMessage());
+                    Toast.makeText(Be9i.this, 
+                        "Erreur: " + error.getMessage(), 
+                        Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     private void validatePayment() {
@@ -81,37 +192,40 @@ public class Be9i extends AppCompatActivity {
     }
 
     private void verifyMerchant(String merchantId, double amount) {
-        mDatabase.child("merchants").child(merchantId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Toast.makeText(Be9i.this, "Marchand non trouvé", Toast.LENGTH_SHORT).show();
-                    return;
+        // Rechercher le marchand par son ID dans la collection merchants
+        mDatabase.child("merchants").orderByChild("id_merchant").equalTo(Integer.parseInt(merchantId))
+            .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        Toast.makeText(Be9i.this, "Marchand non trouvé", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Récupérer le premier (et unique) marchand trouvé
+                    DataSnapshot merchantSnapshot = snapshot.getChildren().iterator().next();
+                    MerchantClass merchant = merchantSnapshot.getValue(MerchantClass.class);
+
+                    if (merchant == null) {
+                        Toast.makeText(Be9i.this, "Erreur lors de la lecture des données du marchand", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Vérifier le solde du marchand
+                    if (merchant.getBalance() < amount) {
+                        Toast.makeText(Be9i.this, "Le marchand n'a pas assez de solde", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Show CIN verification popup
+                    showCINVerificationPopup(merchantId, amount, merchant.getOwnerCIN());
                 }
 
-                // Récupérer le CIN du marchand
-                String ownerCIN = snapshot.child("ownerCIN").getValue(String.class);
-                if (ownerCIN == null || ownerCIN.isEmpty()) {
-                    Toast.makeText(Be9i.this, "Erreur: CIN du marchand non défini", Toast.LENGTH_SHORT).show();
-                    return;
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(Be9i.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
-                // Vérifier le solde du marchand
-                Double merchantBalance = snapshot.child("balance").getValue(Double.class);
-                if (merchantBalance == null || merchantBalance < amount) {
-                    Toast.makeText(Be9i.this, "Le marchand n'a pas assez de solde", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Show CIN verification popup
-                showCINVerificationPopup(merchantId, amount, ownerCIN);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(Be9i.this, "Erreur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 
     private void showCINVerificationPopup(String merchantId, double amount, String correctCIN) {

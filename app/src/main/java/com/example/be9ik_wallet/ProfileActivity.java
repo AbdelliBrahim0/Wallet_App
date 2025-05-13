@@ -3,6 +3,7 @@ package com.example.be9ik_wallet;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -118,7 +119,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                         String dateSignUp = snapshot.child("dateSignUp").getValue(String.class);
                         Boolean verified = snapshot.child("verified").getValue(Boolean.class);
-                        String qrCode = snapshot.child("qrCode").getValue(String.class);
 
                         displayUserData(
                                 name != null && lastName != null ? name + " " + lastName : "N/A",
@@ -131,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 username != null ? username : "N/A",
                                 dateSignUp != null ? dateSignUp : "N/A",
                                 verified != null && verified,
-                                qrCode != null ? qrCode : "N/A"
+                                null
                         );
                     } else {
                         Toast.makeText(ProfileActivity.this, "Utilisateur introuvable", Toast.LENGTH_SHORT).show();
@@ -188,15 +188,20 @@ public class ProfileActivity extends AppCompatActivity {
 
             // Générer et afficher le QR code
             ImageView ivQrCode = findViewById(R.id.iv_qr_code);
-            if (ivQrCode != null && qrCode != null) {
+            if (ivQrCode != null) {
                 try {
+                    // Utiliser l'ID utilisateur pour le QR code
+                    String qrContent = userId;
+                    Log.d("QRCode", "Génération du QR code avec l'ID: " + qrContent);
+                    
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                    BitMatrix bitMatrix = multiFormatWriter.encode(qrCode, BarcodeFormat.QR_CODE, 500, 500);
+                    BitMatrix bitMatrix = multiFormatWriter.encode(qrContent, BarcodeFormat.QR_CODE, 500, 500);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                     ivQrCode.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();
+                    Log.e("QRCode", "Erreur lors de la génération du QR code: " + e.getMessage());
                     Toast.makeText(this, "Erreur lors de la génération du QR code", Toast.LENGTH_SHORT).show();
                 }
             }

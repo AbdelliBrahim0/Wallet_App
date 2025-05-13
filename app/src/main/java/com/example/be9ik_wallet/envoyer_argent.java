@@ -1,12 +1,19 @@
 package com.example.be9ik_wallet;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +41,16 @@ public class envoyer_argent extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String currentUserId;
+    private static final int CAMERA_PERMISSION_REQUEST = 100;
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    startQRScanner();
+                } else {
+                    Toast.makeText(this, "Permission de la caméra requise pour scanner le QR code", Toast.LENGTH_SHORT).show();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +84,95 @@ public class envoyer_argent extends AppCompatActivity {
 
     private void setupListeners() {
         btnPoursuivre.setOnClickListener(v -> validateAndTransfer());
+        btnScannerQR.setOnClickListener(v -> checkCameraPermissionAndScan());
+    }
+
+    private void checkCameraPermissionAndScan() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+        } else {
+            startQRScanner();
+        }
+    }
+
+    private void startQRScanner() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        integrator.setPrompt("Scannez le QR code du destinataire");
+        integrator.setCameraId(0);  // Use back camera
+        integrator.setBeepEnabled(true);
+        integrator.setBarcodeImageEnabled(true);
+        integrator.setOrientationLocked(true); // Lock orientation
+        integrator.setCaptureActivity(QRScannerActivity.class); // Use custom capture activity
+        integrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                String scannedContent = result.getContents();
+                Log.d("QRScan", "Contenu scanné brut: " + scannedContent); // Log du contenu brut
+                
+                // Vérifier si le contenu scanné est un ID utilisateur valide
+                if (scannedContent.matches("[a-zA-Z0-9_-]+")) {
+                    Log.d("QRScan", "Format ID valide détecté");
+                    verifyAndSetUserId(scannedContent);
+                } else {
+                    Log.e("QRScan", "Format ID invalide: " + scannedContent);
+                    Toast.makeText(this, "QR code invalide", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Scan annulé", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void verifyAndSetUserId(String userId) {
+        Log.d("QRScan", "Vérification de l'ID utilisateur: " + userId);
+        Log.d("QRScan", "Chemin de la base de données: users/" + userId);
+        
+        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.d("QRScan", "Réponse de la base de données - Existe: " + snapshot.exists());
+                if (snapshot.exists()) {
+                    Log.d("QRScan", "Données utilisateur trouvées: " + snapshot.getValue().toString());
+                    
+                    if (userId.equals(currentUserId)) {
+                        Log.d("QRScan", "Tentative d'envoi à soi-même détectée");
+                        Toast.makeText(envoyer_argent.this, 
+                            "Vous ne pouvez pas vous envoyer de l'argent à vous-même", 
+                            Toast.LENGTH_SHORT).show();
+                    } else {
+                        String username = snapshot.child("username").getValue(String.class);
+                        Log.d("QRScan", "Nom d'utilisateur trouvé: " + username);
+                        editTextIdRecepteur.setText(userId);
+                        Toast.makeText(envoyer_argent.this, 
+                            "Destinataire trouvé: " + (username != null ? username : userId), 
+                            Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("QRScan", "Aucun utilisateur trouvé pour l'ID: " + userId);
+                    Toast.makeText(envoyer_argent.this, 
+                        "Utilisateur non trouvé", 
+                        Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e("QRScan", "Erreur de base de données: " + error.getMessage());
+                Log.e("QRScan", "Code d'erreur: " + error.getCode());
+                Toast.makeText(envoyer_argent.this, 
+                    "Erreur: " + error.getMessage(), 
+                    Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void validateAndTransfer() {

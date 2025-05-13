@@ -127,6 +127,41 @@
                 android:padding="24dp"
                 android:background="@drawable/premium_card_background">
 
+                <!-- QR Code Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Votre QR Code"
+                        android:textSize="16sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginBottom="16dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_qr_code"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:contentDescription="QR Code du marchand"
+                        android:background="@android:color/white"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scannez ce code pour effectuer un paiement"
+                        android:textSize="14sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Existing Balance Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
