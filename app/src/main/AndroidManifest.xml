@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Permission pour accéder à internet (nécessaire pour Firebase) -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Permission optionnelle pour accéder au réseau (pour certaines fonctionnalités) -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission optionnelle pour accéder au réseau (pour certaines fonctionnalités) -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -16,6 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Be9ik_Wallet"
         tools:targetApi="31">
+        <activity
+            android:name=".partenaires"
+            android:exported="false" />
+        <activity
+            android:name=".ComingSoon"
+            android:exported="false" />
+        <activity
+            android:name=".rechargeTelephonique"
+            android:exported="false" />
+        <activity
+            android:name=".facture_choix"
+            android:exported="false" />
         <activity
             android:name=".DashMarchand"
             android:exported="false" />
@@ -70,18 +81,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- Activité d'inscription -->
+        </activity> <!-- Activité d'inscription -->
         <activity
             android:name=".SignupActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <!-- Activité principale après connexion -->
+            android:windowSoftInputMode="adjustResize" /> <!-- Activité principale après connexion -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:launchMode="singleTop" />
-        <!-- Service Firebase (important pour les notifications et autres fonctionnalités) -->
+            android:launchMode="singleTop" /> <!-- Service Firebase (important pour les notifications et autres fonctionnalités) -->
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"
             android:exported="false">
