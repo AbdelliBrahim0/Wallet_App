@@ -28,6 +28,7 @@ public class UserClass {
     private Double depenses;
     private String ownerCIN;
     private boolean isMerchant;
+    private String qrCode;
 
     // Constructor vide
     public UserClass() {
@@ -40,6 +41,7 @@ public class UserClass {
         this.role = "user";
         this.depenses = 0.0;
         this.isMerchant = false;
+        this.qrCode = generateQRCode();
     }
 
     // Constructor pour le formulaire
@@ -64,6 +66,7 @@ public class UserClass {
         this.role = "user";
         this.depenses = 0.0;
         this.isMerchant = false;
+        this.qrCode = generateQRCode();
     }
 
     // Méthodes utilitaires pour les transferts
@@ -102,6 +105,12 @@ public class UserClass {
     private String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return sdf.format(new Date());
+    }
+
+    // Méthode pour générer le QR code
+    private String generateQRCode() {
+        // Générer un QR code unique basé sur l'ID utilisateur et le code de transaction
+        return "WALLET_" + this.id_utilisateur + "_" + this.codeTransaction;
     }
 
     // Getters et Setters
@@ -276,6 +285,14 @@ public class UserClass {
         isMerchant = merchant;
     }
 
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -298,6 +315,7 @@ public class UserClass {
                 ", depenses=" + depenses +
                 ", ownerCIN='" + ownerCIN + '\'' +
                 ", isMerchant=" + isMerchant +
+                ", qrCode='" + qrCode + '\'' +
                 '}';
     }
 }

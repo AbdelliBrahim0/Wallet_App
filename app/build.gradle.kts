@@ -52,6 +52,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
 
+    // ZXing pour la génération de QR code
+    implementation("com.google.zxing:core:3.5.2")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
     // Kotlin activity (à corriger si libs.activity ne fonctionne pas)
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation(libs.androidx.activity)

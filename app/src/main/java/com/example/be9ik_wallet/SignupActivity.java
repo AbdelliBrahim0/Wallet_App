@@ -74,7 +74,25 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        registerWithFirebase(email, password, firstName, lastName, username, birthDate, phone, gender);
+        // Vérifier si l'email existe déjà
+        mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().getSignInMethods() != null && !task.getResult().getSignInMethods().isEmpty()) {
+                            // L'email existe déjà
+                            Toast.makeText(SignupActivity.this, 
+                                "Cette adresse email est déjà utilisée. Veuillez utiliser une autre adresse email.", 
+                                Toast.LENGTH_LONG).show();
+                        } else {
+                            // L'email n'existe pas, on peut procéder à l'inscription
+                            registerWithFirebase(email, password, firstName, lastName, username, birthDate, phone, gender);
+                        }
+                    } else {
+                        Toast.makeText(SignupActivity.this, 
+                            "Erreur lors de la vérification de l'email: " + task.getException().getMessage(), 
+                            Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private String getSelectedGender() {
@@ -152,9 +170,9 @@ public class SignupActivity extends AppCompatActivity {
                     } else {
                         String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
                         Toast.makeText(SignupActivity.this,
-                                "Registration failed: " + errorMessage,
+                                "Échec de l'inscription: " + errorMessage,
                                 Toast.LENGTH_SHORT).show();
-                        task.getException().printStackTrace(); // Log the error for debugging
+                        task.getException().printStackTrace();
                     }
                 });
     }
@@ -166,6 +184,7 @@ public class SignupActivity extends AppCompatActivity {
                 birthDate, phone, "", gender, true);
         user.setId_utilisateur(userId);
         user.setRole("user"); // Définir le rôle par défaut à "user"
+        user.setQrCode("WALLET_" + userId + "_" + user.getCodeTransaction()); // Générer le QR code
 
         mDatabase.child(userId).setValue(user)
                 .addOnSuccessListener(aVoid -> {
