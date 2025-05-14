@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,6 +59,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         private TextView voucherDescription;
         private TextView voucherValidity;
         private TextView voucherPrice;
+        private MaterialButton btnPayer;
 
         VoucherViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +68,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
             voucherDescription = itemView.findViewById(R.id.voucher_description);
             voucherValidity = itemView.findViewById(R.id.voucher_validity);
             voucherPrice = itemView.findViewById(R.id.voucher_price);
+            btnPayer = itemView.findViewById(R.id.btn_payer);
         }
 
         void bind(VoucherClass voucher) {
@@ -87,6 +91,12 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
                     listener.onVoucherClick(voucher);
                 }
             });
+
+            btnPayer.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onVoucherClick(voucher);
+                }
+            });
         }
     }
-} 
+}

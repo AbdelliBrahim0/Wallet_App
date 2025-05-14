@@ -1,5 +1,7 @@
 package com.example.be9ik_wallet;
 
+import com.google.firebase.database.PropertyName;
+
 public class VoucherClass {
     private String id;
     private String type;
@@ -48,9 +50,12 @@ public class VoucherClass {
     public long getPurchaseDate() { return purchaseDate; }
     public void setPurchaseDate(long purchaseDate) { this.purchaseDate = purchaseDate; }
 
+    @PropertyName("used")
     public boolean isUsed() { return isUsed; }
+
+    @PropertyName("used")
     public void setUsed(boolean used) { isUsed = used; }
 
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
-} 
+}

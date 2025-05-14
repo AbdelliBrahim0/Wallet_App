@@ -61,7 +61,9 @@ public class Voucher extends AppCompatActivity {
         // Configure the RecyclerView
         vouchersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         voucherAdapter = new VoucherAdapter(voucher -> {
-            // Handle voucher click if necessary
+            Intent intent = new Intent(Voucher.this, PayerVoucher.class);
+            intent.putExtra("voucherId", voucher.getId()); // Pass voucher ID if needed
+            startActivity(intent);
         });
         vouchersRecyclerView.setAdapter(voucherAdapter);
 
