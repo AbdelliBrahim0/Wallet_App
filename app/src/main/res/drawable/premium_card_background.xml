@@ -1,7 +1,53 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:startColor="#161616"
-        android:endColor="#2b2b2b"
-        android:angle="135"/>
-    <corners android:radius="16dp"/>
-</shape>
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Ombre -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#40000000" />
+            <corners android:radius="18dp" />
+            <padding android:bottom="2dp" android:left="0dp" android:right="0dp" android:top="0dp" />
+        </shape>
+    </item>
+
+    <!-- Fond principal avec dégradé riche -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#1A1A1A"
+                android:centerColor="#232323"
+                android:endColor="#7C4D0C"
+                android:angle="135"/>
+            <corners android:radius="16dp"/>
+        </shape>
+    </item>
+
+    <!-- Bordure subtile -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp"/>
+            <stroke
+                android:width="1dp"
+                android:color="#40FDAB00"/>
+            <padding
+                android:left="1dp"
+                android:top="1dp"
+                android:right="1dp"
+                android:bottom="1dp"/>
+        </shape>
+    </item>
+
+    <!-- Effet de brillance en haut -->
+    <item android:top="0dp" android:bottom="80dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#20F0C600"
+                android:endColor="#00FFFFFF"
+                android:angle="90"/>
+            <corners
+                android:topLeftRadius="16dp"
+                android:topRightRadius="16dp"/>
+        </shape>
+    </item>
+</layer-list>
